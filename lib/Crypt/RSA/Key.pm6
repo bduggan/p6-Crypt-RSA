@@ -1,5 +1,5 @@
 unit class Crypt::RSA::Key;
 
-has $.exponent;
-has $.modulus;
+has UInt $.exponent;
+has UInt $.modulus;
 
