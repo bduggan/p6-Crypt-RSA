@@ -5,20 +5,28 @@ use Crypt::RSA::Key;
 has Crypt::RSA::Key $.public-key;
 has Crypt::RSA::Key $.private-key;
 
-method !random-prime(UInt:D :$digits) {
+has &.random-prime-generator = sub ($digits = 110) {
   repeat { $_ = (10**$digits .. (10**($digits+1))).pick } until .is-prime;
   return $_;
 }
 
-#| Generate a public and private key.
-method generate-keys(UInt :$digits = 110) {
-    my $q = self!random-prime(:$digits);
-    my $p = self!random-prime(:$digits);
+has &.random-list-picker = sub (@list) returns UInt {
+    return @list.pick
+}
+
+method !random-prime(*@args) returns UInt {
+    return &.random-prime-generator()(|@args);
+}
+
+#| Generate a public and private key.  Args will be passed to the random-prime-generator.
+method generate-keys(*@args) {
+    my $q = self!random-prime(|@args);
+    my $p = self!random-prime(|@args);
     my $pq = $p * $q;
     my $phi = ($p-1) * ($q-1);
     my $k;
     repeat {
-      $k = (1..$pq).pick;
+      $k = &.random-list-picker()(1..$pq);
     } until $k gcd $phi == 1;
 
     my $inverse = expmod($k, -1, $phi);
