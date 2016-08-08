@@ -5,7 +5,7 @@ use Crypt::RSA::Key;
 has Crypt::RSA::Key $.public-key;
 has Crypt::RSA::Key $.private-key;
 
-method !random-prime(:$digits) {
+method !random-prime(UInt:D :$digits) {
   repeat { $_ = (10**$digits .. (10**($digits+1))).pick } until .is-prime;
   return $_;
 }
@@ -18,7 +18,7 @@ method decrypt(UInt $message) {
   return expmod($message,$!private-key.exponent,$!private-key.modulus)
 }
 
-method generate-keys(:$digits = 110) {
+method generate-keys(UInt :$digits = 110) {
     my $q = self!random-prime(:$digits);
     my $p = self!random-prime(:$digits);
     my $pq = $p * $q;
