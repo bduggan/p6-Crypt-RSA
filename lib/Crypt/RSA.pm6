@@ -10,14 +10,7 @@ method !random-prime(UInt:D :$digits) {
   return $_;
 }
 
-method encrypt(UInt $message) {
-  return expmod($message,$!public-key.exponent,$!public-key.modulus)
-}
-
-method decrypt(UInt $message) {
-  return expmod($message,$!private-key.exponent,$!private-key.modulus)
-}
-
+#| Generate a public and private key.
 method generate-keys(UInt :$digits = 110) {
     my $q = self!random-prime(:$digits);
     my $p = self!random-prime(:$digits);
@@ -33,5 +26,27 @@ method generate-keys(UInt :$digits = 110) {
     $!private-key = Crypt::RSA::Key.new(exponent => $inverse, modulus => $pq );
     return ($!public-key, $!private-key);
 }
+
+#| Encrypt a message with the public key
+method encrypt(UInt $message) {
+  return expmod($message,$!public-key.exponent,$!public-key.modulus)
+}
+
+#| Decrypt a message with the private key.
+method decrypt(UInt $message) {
+  return expmod($message,$!private-key.exponent,$!private-key.modulus)
+}
+
+#| Generate a signature for a message with the private key.
+method generate-signature(UInt $message) {
+  return expmod($message,$!private-key.exponent,$!private-key.modulus)
+}
+
+#| Verify a signature against the public key.
+method verify-signature(UInt $message, $signature) {
+  return expmod($signature,$!public-key.exponent,$!public-key.modulus)==$message;
+}
+
+
 
 
