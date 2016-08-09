@@ -2,9 +2,17 @@ use v6;
 use lib 'lib';
 use Test;
 
+BEGIN {
+    plan 8;
+    unless %*ENV<TEST_CRYPT_RANDOM> {
+        skip-rest("set TEST_CRYPT_RANDOM to run");
+        exit;
+    }
+}
+
+use Crypt::RSA;
 use Crypt::Random;
 use Crypt::Random::Extra;
-use Crypt::RSA;
 
 my $crypt = Crypt::RSA.new(
     random-prime-generator => sub {
