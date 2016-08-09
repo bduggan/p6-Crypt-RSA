@@ -5,12 +5,12 @@ use Crypt::RSA::Key;
 has Crypt::RSA::Key $.public-key;
 has Crypt::RSA::Key $.private-key;
 
-has &.random-prime-generator = sub ($digits = 110) {
+has &.random-prime-generator = sub (UInt $digits = 110) {
   repeat { $_ = (10**$digits .. (10**($digits+1))).pick } until .is-prime;
   return $_;
 }
 
-has &.random-list-picker = sub ($range) returns UInt {
+has &.random-list-picker = sub (Range $range) returns UInt {
     return $range.pick
 }
 
@@ -51,10 +51,7 @@ method generate-signature(UInt $message) {
 }
 
 #| Verify a signature against the public key.
-method verify-signature(UInt $message, $signature) {
+method verify-signature(UInt $message, UInt $signature) {
   return expmod($signature,$!public-key.exponent,$!public-key.modulus)==$message;
 }
-
-
-
 
