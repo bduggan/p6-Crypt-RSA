@@ -10,7 +10,7 @@ has &.random-prime-generator = sub (UInt $digits = 110) {
   return $_;
 }
 
-has &.random-list-picker = sub (Range $range) returns UInt {
+has &.random-range-picker = sub (Range $range) returns UInt {
     return $range.pick
 }
 
@@ -26,7 +26,7 @@ method generate-keys(*@args) {
     my $phi = ($p-1) * ($q-1);
     my $k;
     repeat {
-      $k = &.random-list-picker()(1..$pq);
+      $k = &.random-range-picker()(1..$pq);
     } until $k gcd $phi == 1;
 
     my $inverse = expmod($k, -1, $phi);

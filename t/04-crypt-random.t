@@ -18,7 +18,7 @@ my $crypt = Crypt::RSA.new(
     random-prime-generator => sub {
         crypt_random_prime()
     },
-    random-list-picker => sub ($range) {
+    random-range-picker => sub ($range) {
         my $size = log($range, 10).Int;
         my $rand = crypt_random_uniform($range.max,$size);
         return $range[$rand];
