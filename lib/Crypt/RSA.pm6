@@ -10,8 +10,8 @@ has &.random-prime-generator = sub ($digits = 110) {
   return $_;
 }
 
-has &.random-list-picker = sub (@list) returns UInt {
-    return @list.pick
+has &.random-list-picker = sub ($range) returns UInt {
+    return $range.pick
 }
 
 method !random-prime(*@args) returns UInt {
