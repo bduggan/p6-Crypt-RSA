@@ -24,13 +24,13 @@ die unless $crypt.verify-signature($message,$signature);
 ## DESCRIPTION
 
 This is a very simplistic implementation of the RSA algorithm
-as described here:
+for public key encryption.  See
 
     https://people.csail.mit.edu/rivest/Rsapaper.pdf
 
-By default it uses the Perl built-in random number functions,
+By default, it uses the Perl 6 built-in random number functions,
 but the constructor takes two optional arguments:
 random-prime-generator and random-range-picker, which
-can be used instead.  See [t/crypt-random-t](t/crypt-random.t)
+can be used instead.  See [t/04-crypt-random-t](t/04-crypt-random.t)
 for an example that uses Crypt::Random.
 
