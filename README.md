@@ -4,7 +4,7 @@
 
 ## SYNOPSIS
 
-Pure Perl 6 implementation of the RSA encryption algorithm.
+Pure Perl 6 implementation of RSA public key encryption.
 
 ```
 
@@ -24,13 +24,16 @@ die unless $crypt.verify-signature($message,$signature);
 ## DESCRIPTION
 
 This is a very simplistic implementation of the RSA algorithm
-for public key encryption.  See
+for public key encryption.
 
-    https://people.csail.mit.edu/rivest/Rsapaper.pdf
-
-By default, it uses the Perl 6 built-in random number functions,
+By default, it relies on Perl 6 built-ins for randomness,
 but the constructor takes two optional arguments:
-random-prime-generator and random-range-picker, which
-can be used instead.  See [t/04-crypt-random-t](t/04-crypt-random.t)
-for an example that uses Crypt::Random.
+`random-prime-generator(UInt $digits)` and `random-range-picker(Range $range)`
+that can be used instead.  Any arguments to `generate-keys`
+will be sent to `random-prime-generator`.  See
+[t/04-crypt-random-t](t/04-crypt-random.t) for an example that
+uses Crypt::Random.
 
+## References
+
+https://people.csail.mit.edu/rivest/Rsapaper.pdf
