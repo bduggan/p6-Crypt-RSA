@@ -35,6 +35,7 @@ on to `random-prime-generator`.
 
 ## EXAMPLES
 
+
 ```
 use Crypt::Random;
 use Crypt::Random::Extra;
