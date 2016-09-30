@@ -1,6 +1,6 @@
 # Crypt::RSA
 
-[![Build Status](https://travis-ci.org/bduggan/Crypt-RSA.svg?branch=master)](https://travis-ci.org/bduggan/Crypt-RSA)
+[![Build Status](https://travis-ci.org/bduggan/p6-Crypt-RSA.svg?branch=master)](https://travis-ci.org/bduggan/p6-Crypt-RSA)
 
 ## SYNOPSIS
 
