@@ -53,4 +53,6 @@ my $crypt = Crypt::RSA.new(
 
 ## References
 
-https://people.csail.mit.edu/rivest/Rsapaper.pdf
+- https://people.csail.mit.edu/rivest/Rsapaper.pdf
+- https://www.promptworks.com/blog/public-keys-in-perl-6
+
