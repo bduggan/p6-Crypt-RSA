@@ -30,9 +30,26 @@ By default, it relies on Perl 6 built-ins for randomness,
 but the constructor takes two optional arguments:
 `random-prime-generator(UInt $digits)` and `random-range-picker(Range $range)`
 that can be used instead.  Any arguments to `generate-keys`
-will be sent to `random-prime-generator`.  See
-[t/04-crypt-random-t](t/04-crypt-random.t) for an example that
-uses Crypt::Random.
+(such as the number of digits or number of bits) will be passed
+on to `random-prime-generator`.
+
+## EXAMPLES
+
+```
+use Crypt::Random;
+use Crypt::Random::Extra;
+
+my $crypt = Crypt::RSA.new(
+    random-prime-generator => sub {
+        crypt_random_prime()
+    },
+    random-range-picker => sub($range) {
+        my $size = log($range, 10).Int;
+        my $rand = crypt_random_uniform($range.max,$size);
+        return $range[$rand];
+    }
+);
+```
 
 ## References
 
